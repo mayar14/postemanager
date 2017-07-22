@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 25, 2017 6:09:18 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Tournee" table="tournee" catalog="postemanager" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="secteur" class="model.Secteur" fetch="select">
+            <column name="id_secteur" not-null="true" />
+        </many-to-one>
+        <property name="numero" type="int">
+            <column name="numero" not-null="true" />
+        </property>
+        <property name="cp" type="int">
+            <column name="cp" not-null="true" />
+        </property>
+        <property name="dateCreation" type="date">
+            <column name="dateCreation" length="10" not-null="true" />
+        </property>
+        <property name="reference" type="int">
+            <column name="reference" not-null="true" />
+        </property>
+        <property name="indemnite" type="int">
+            <column name="indemnite" not-null="true" />
+        </property>
+        <property name="frequenceDistribution" type="int">
+            <column name="frequenceDistribution" not-null="true" />
+        </property>
+        <property name="dateMaj" type="date">
+            <column name="dateMAJ" length="10" not-null="true" />
+        </property>
+        <set name="boitelettreses" table="boitelettres" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_tournee" not-null="true" />
+            </key>
+            <one-to-many class="model.Boitelettres" />
+        </set>
+        <set name="cyclos" table="cyclo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_tournee" not-null="true" />
+            </key>
+            <one-to-many class="model.Cyclo" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 25, 2017 6:09:18 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Cyclo" table="cyclo" catalog="postemanager" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="tournee" class="model.Tournee" fetch="select">
+            <column name="id_tournee" not-null="true" />
+        </many-to-one>
+        <property name="matricule" type="int">
+            <column name="matricule" not-null="true" />
+        </property>
+        <property name="dateCarteGrise" type="date">
+            <column name="dateCarteGrise" length="10" not-null="true" />
+        </property>
+        <property name="datePu" type="date">
+            <column name="datePU" length="10" not-null="true" />
+        </property>
+        <property name="reference" type="int">
+            <column name="reference" not-null="true" />
+        </property>
+        <set name="cycloFacteurs" table="cyclo_facteur" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cyclo" not-null="true" />
+            </key>
+            <one-to-many class="model.CycloFacteur" />
+        </set>
+        <set name="cycloBenificiaires" table="cyclo_benificiaire" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cyclo" not-null="true" />
+            </key>
+            <one-to-many class="model.CycloBenificiaire" />
+        </set>
+    </class>
+</hibernate-mapping>
